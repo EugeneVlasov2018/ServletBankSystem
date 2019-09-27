@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="/WEB-INF/mytag.tld" prefix="customTag" %>
 <fmt:setLocale value="${sessionScope.currentLang}" scope="session"/>
 <fmt:setBundle basename="pages/userpage"/>
 
@@ -44,8 +45,8 @@
             <td>${depAcc.deposit}</td>
             <td>${depAcc.interestRate}</td>
             <td>
-                <fmt:message key="account.validity.message"/>
-                    ${depAcc.accountValidity}
+                <fmt:message key="account.validity.message"/><br>
+                <customTag:customDate localDateTime="${depAcc.accountValidity}"/>
             </td>
             <td>
                 <form action="${pageContext.request.contextPath}userpage/accountoperation" method="post">
@@ -83,8 +84,8 @@
                 <td>${credAcc.creditLimit}</td>
                 <td>${credAcc.interestRate}</td>
                 <td>
-                    <fmt:message key="account.validity.message"/>
-                        ${credAcc.accountValidity}
+                    <fmt:message key="account.validity.message"/><br>
+                    <customTag:customDate localDateTime="${credAcc.accountValidity}"/>
                 </td>
                 <td>
                     <form action="${pageContext.request.contextPath}userpage/accountoperation" method="post">

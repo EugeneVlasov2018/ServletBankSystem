@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="/WEB-INF/mytag.tld" prefix="customTag" %>
 <c:if test="${not empty sessionScope.currentLang}">
     <fmt:setLocale value="${sessionScope.currentLang}" scope="session"/>
 </c:if>
@@ -47,7 +48,8 @@
     </tr>
     <c:forEach items="${requestScope.history}" var="acc">
         <tr>
-            <td>${acc.dateOfTransaction}</td>
+
+            <td><customTag:customDate localDateTime="${acc.dateOfTransaction}"/></td>
             <td>${acc.transactionAmount}</td>
             <td>${acc.currentBalance}</td>
             <td>${acc.notification}</td>

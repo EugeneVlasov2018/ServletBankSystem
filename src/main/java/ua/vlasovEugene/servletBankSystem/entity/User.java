@@ -1,7 +1,5 @@
 package ua.vlasovEugene.servletBankSystem.entity;
 
-import lombok.EqualsAndHashCode;
-
 import java.util.Objects;
 
 /**
