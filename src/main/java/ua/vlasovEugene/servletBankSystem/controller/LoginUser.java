@@ -3,6 +3,7 @@ package ua.vlasovEugene.servletBankSystem.controller;
 import ua.vlasovEugene.servletBankSystem.entity.User;
 import ua.vlasovEugene.servletBankSystem.service.AuthentificationService;
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.DaoException;
+import ua.vlasovEugene.servletBankSystem.utils.exceptions.PasswordGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,7 @@ public class LoginUser implements Command {
         User user;
 
         user = service.getUserByLogin(login);
+        System.out.println("from service " + user);
 
         if (user != null) {
             if (checkUser(request, password, user)) {
@@ -44,8 +46,12 @@ public class LoginUser implements Command {
     }
 
     private boolean checkUser(HttpServletRequest request, String password, User user) {
-        if (user.getUserPassword().equals(password)) {
+        if (PasswordGenerator.checkPassword(user, password)) {
+
+            /* СУПЕРВАЖНО ОСТАВИТЬ ПРИ РЕФАКТОРИНГЕ, ЧТОБЫ НЕ ПУСКАТЬ В СЕССИЮ ЮЗЕРА С ПАРОЛЕМ И СОЛЬЮ!!!*/
             user.setUserPassword(null);
+            user.setSalt(null);
+
             HttpSession session = request.getSession();
             session.setAttribute("user",user);
             return true;

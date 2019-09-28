@@ -50,7 +50,7 @@
 </c:if>
 <c:out value="${requestScope.exceptionError}"/>
 
-<form method="get" action="${pageContext.request.contextPath}adminpage">
+<form method="get" action="/adminpage">
     <input type="submit" value="<fmt:message key="adminmenu.back"/> "/>
 </form>
 

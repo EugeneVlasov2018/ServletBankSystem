@@ -1,5 +1,6 @@
 package ua.vlasovEugene.servletBankSystem.entity;
 
+import java.math.BigInteger;
 import java.util.Objects;
 
 /**
@@ -16,84 +17,61 @@ public class User {
   private String userRole;
   private Boolean userHaveCreditAcc;
     private Boolean creditRequestStatus;
+    private String salt;
 
-  public User() {
+    private User() {
   }
 
-  public User(Integer userId, String userFirstname, String userLastname, String userLoginEmail,
-              String userPassword, String userRole, Boolean userHaveCreditAcc, Boolean creditRequestStatus) {
-    this.userId = userId;
-    this.userFirstname = userFirstname;
-    this.userLastname = userLastname;
-    this.userLoginEmail = userLoginEmail;
-    this.userPassword = userPassword;
-    this.userRole = userRole;
-    this.userHaveCreditAcc = userHaveCreditAcc;
+    public void setCreditRequestStatus(Boolean creditRequestStatus) {
       this.creditRequestStatus = creditRequestStatus;
   }
 
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
   public Integer getUserId() {
     return userId;
-  }
-
-  public void setUserId(Integer userId) {
-    this.userId = userId;
   }
 
   public String getUserFirstname() {
     return userFirstname;
   }
 
-  public void setUserFirstname(String userFirstname) {
-    this.userFirstname = userFirstname;
-  }
-
   public String getUserLastname() {
     return userLastname;
-  }
-
-  public void setUserLastname(String userLastname) {
-    this.userLastname = userLastname;
   }
 
   public String getUserLoginEmail() {
     return userLoginEmail;
   }
 
-  public void setUserLoginEmail(String userLoginEmail) {
-    this.userLoginEmail = userLoginEmail;
-  }
-
   public String getUserPassword() {
     return userPassword;
-  }
-
-  public void setUserPassword(String userPassword) {
-    this.userPassword = userPassword;
   }
 
   public String getUserRole() {
     return userRole;
   }
 
-  public void setUserRole(String userRole) {
-    this.userRole = userRole;
-  }
-
   public Boolean getUserHaveCreditAcc() {
     return userHaveCreditAcc;
-  }
-
-  public void setUserHaveCreditAcc(Boolean userHaveCreditAcc) {
-    this.userHaveCreditAcc = userHaveCreditAcc;
   }
 
     public Boolean getCreditRequestStatus() {
         return creditRequestStatus;
     }
 
-    public void setCreditRequestStatus(Boolean creditRequestStatus) {
-        this.creditRequestStatus = creditRequestStatus;
+    public String getSalt() {
+        return salt;
+    }
+
+    public static Builder newBuilder() {
+        return new User().new Builder();
     }
 
   @Override
@@ -108,13 +86,68 @@ public class User {
             Objects.equals(userPassword, user.userPassword) &&
             Objects.equals(userRole, user.userRole) &&
             Objects.equals(userHaveCreditAcc, user.userHaveCreditAcc) &&
-            Objects.equals(creditRequestStatus, user.creditRequestStatus);
+            Objects.equals(creditRequestStatus, user.creditRequestStatus) &&
+            Objects.equals(salt, user.salt);
   }
 
   @Override
   public int hashCode() {
       return Objects.hash(userId, userFirstname, userLastname, userLoginEmail,
-              userPassword, userRole, userHaveCreditAcc, creditRequestStatus);
+              userPassword, userRole, userHaveCreditAcc, creditRequestStatus, salt);
+  }
+
+    public class Builder {
+        private Builder() {
+        }
+
+        public Builder setUserId(Integer userId) {
+            User.this.userId = userId;
+            return this;
+        }
+
+        public Builder setUserFirstname(String userFirstname) {
+            User.this.userFirstname = userFirstname;
+            return this;
+        }
+
+        public Builder setUserLastname(String userLastname) {
+            User.this.userLastname = userLastname;
+            return this;
+        }
+
+        public Builder setUserLoginEmail(String userLoginEmail) {
+            User.this.userLoginEmail = userLoginEmail;
+            return this;
+        }
+
+        public Builder setUserPassword(String userPassword) {
+            User.this.userPassword = userPassword;
+            return this;
+        }
+
+        public Builder setUserRole(String userRole) {
+            User.this.userRole = userRole;
+            return this;
+        }
+
+        public Builder setUserSalt(String salt) {
+            User.this.salt = salt;
+            return this;
+        }
+
+        public Builder setUserHaveCreditAcc(Boolean userHaveCreditAcc) {
+            User.this.userHaveCreditAcc = userHaveCreditAcc;
+            return this;
+        }
+
+        public Builder setCreditRequestStatus(Boolean creditRequestStatus) {
+            User.this.creditRequestStatus = creditRequestStatus;
+            return this;
+        }
+
+        public User build() {
+            return User.this;
+        }
   }
 
     @Override
@@ -128,6 +161,8 @@ public class User {
                 ", userRole='" + userRole + '\'' +
                 ", userHaveCreditAcc=" + userHaveCreditAcc +
                 ", creditRequestStatus=" + creditRequestStatus +
+                ", salt='" + salt + '\'' +
                 '}';
-  }
+    }
 }
+

@@ -8,6 +8,7 @@ import ua.vlasovEugene.servletBankSystem.entity.User;
 import ua.vlasovEugene.servletBankSystem.utils.TransactionHandler;
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.AccountNumberGenerator;
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.DaoException;
+import ua.vlasovEugene.servletBankSystem.utils.exceptions.PasswordGenerator;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -23,6 +24,7 @@ public class UserService {
     private final AbstractDaoFactory FACTORY = AbstractDaoFactory.getDaoFactory("MY_SQL_FACTORY");
     private final BigDecimal DEPOSIT_INTEREST_RATE = new BigDecimal("5");
     private final String FIRST_NOTE_FOR_PAYMENT_HISTORY = "Your account was created, congratulations !";
+    private final String USER_ROLE = "user";
     private IAccountDao accountDao;
     private IUserDao userDao;
     private IAccountHistoryDao accHistoryDao;
@@ -115,17 +117,18 @@ public class UserService {
     }
 
     private User createNewUser(String firstname, String lastname, String login, String password) {
-        User result = new User();
+        Map<String, String> passAndSalt = PasswordGenerator.createPassword(password);
 
-        result.setUserFirstname(firstname);
-        result.setUserLastname(lastname);
-        result.setUserLoginEmail(login);
-        result.setUserPassword(password);
-        result.setUserRole("user");
-        result.setUserHaveCreditAcc(false);
-        result.setCreditRequestStatus(false);
-
-        return result;
+        return User.newBuilder()
+                .setUserFirstname(firstname)
+                .setUserLastname(lastname)
+                .setUserLoginEmail(login)
+                .setUserPassword(passAndSalt.get("password"))
+                .setUserRole(USER_ROLE)
+                .setUserSalt(passAndSalt.get("salt"))
+                .setUserHaveCreditAcc(false)
+                .setCreditRequestStatus(false)
+                .build();
     }
 
     public BigDecimal getTotalBalanceAfterHalfYear(User user, LocalDateTime afterSixMonts) throws DaoException {

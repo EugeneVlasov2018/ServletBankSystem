@@ -25,12 +25,13 @@ create table if not exists user
     user_id               int auto_increment
         primary key,
     user_firstname        varchar(100)         null,
-    user_secondname       varchar(100)         null,
+    user_lastname         varchar(100)         null,
     user_login_email      varchar(100)         null,
-    user_password         varchar(20)          null,
+    user_password         varchar(250)         null,
     user_role             varchar(50)          null,
     user_credit_acc       tinyint(1) default 0 null,
     credit_request_status tinyint(1) default 0 null,
+    salt                  varchar(20)          null,
     constraint user_user_email_login_uindex
         unique (user_login_email),
     constraint user_user_login_emali_uindex
@@ -85,7 +86,20 @@ create table if not exists payment_history
 );
 
 
+INSERT INTO `epamproject`.`user_role` (`user_role_value`)
+VALUES ('user');
+INSERT INTO `epamproject`.`user_role` (`user_role_value`)
+VALUES ('admin');
 
-INSERT INTO `epamproject`.`user`
-(`user_firstname`, `user_secondname`, `user_login_email`, `user_password`, `user_role`, `user_credit_acc`)
-VALUES ('MAIN', 'ADMINISTRATOR', 'admin', '111', 'admin', DEFAULT);
+INSERT INTO `epamproject`.`account_type` (`acc_type_value`)
+VALUES ('credit');
+INSERT INTO `epamproject`.`account_type` (`acc_type_value`)
+VALUES ('deposit');
+
+INSERT INTO `epamproject`.`user` (`user_firstname`, `user_lastname`, `user_login_email`,
+                                  `user_password`, `user_role`, `user_credit_acc`,
+                                  `credit_request_status`, `salt`)
+VALUES ('MAIN', 'ADMIN', 'admin',
+        '[71, 38, 96, 122, 56, -77, 103, 93, 53, 119, 85, 85, -126, -75, 117, -79]',
+        'admin', DEFAULT, DEFAULT, 'somesaltsomesalt');
+
