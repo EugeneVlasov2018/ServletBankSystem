@@ -102,11 +102,11 @@ public class Account {
     this.accountValidity = accountValidity;
   }
 
-    public BigDecimal getDeposit() {
+  public BigDecimal getDeposit() {
         return deposit;
     }
 
-    public void setDeposit(BigDecimal deposit) {
+  public void setDeposit(BigDecimal deposit) {
         this.deposit = deposit;
     }
 
@@ -128,8 +128,6 @@ public class Account {
 
   @Override
   public int hashCode() {
-      return Objects.hash(accountId, accountOwner, accountNumber,
-              accountType, currentBalance, interestRate, creditLimit,
-              accountValidity, deposit);
+    return Objects.hash(accountId, accountOwner, accountNumber, accountType, currentBalance, interestRate, creditLimit, accountValidity, deposit);
   }
 }

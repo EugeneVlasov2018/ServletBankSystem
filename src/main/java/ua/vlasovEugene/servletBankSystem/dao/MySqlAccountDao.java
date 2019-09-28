@@ -144,15 +144,12 @@ public class MySqlAccountDao implements IAccountDao {
 
     @Override
     public boolean equals(Object o) {
-        boolean result = false;
-        if (this == o) result = true;
-        if (o == null || getClass() != o.getClass()) return false;
-        return result;
+        if (this == o) return true;
+        return o != null && getClass() == o.getClass();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(GET_ALL_ACCOUNTS_OF_CURRENT_USER, GET_ALL_ACCOUNT_NUMBERS, ADD_NEW_ACCOUNT);
+        return Objects.hash(GET_ALL_ACCOUNTS, GET_ALL_ACCOUNTS_OF_CURRENT_USER, GET_ALL_ACCOUNT_NUMBERS, ADD_NEW_ACCOUNT, GET_CURRENT_ACCOUNT, CHANGE_BALANCE_OF_CURRENT_ACC);
     }
-
 }

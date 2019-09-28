@@ -66,9 +66,6 @@ public class AccountHistory implements Command {
         request.setAttribute("numberOfPage", numberOfPage);
         request.setAttribute("currentPage", page);
 
-        /*request.setAttribute("history",
-                service.getHistoryOfCurrentAccount(accountNumber));*/
-
         LOG.info("Add list of history of current acc to request");
     }
 
@@ -82,6 +79,6 @@ public class AccountHistory implements Command {
 
     @Override
     public int hashCode() {
-        return Objects.hash(service, ACOOUNT_PAGE);
+        return Objects.hash(service);
     }
 }

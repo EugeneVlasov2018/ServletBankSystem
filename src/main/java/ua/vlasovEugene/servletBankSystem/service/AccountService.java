@@ -180,6 +180,16 @@ public class AccountService {
         });
     }
 
+    public int getNumberOfRecord() throws DaoException {
+        AtomicInteger countOfRecords = new AtomicInteger(0);
+
+        TransactionHandler.runInTransaction(connection -> {
+            countOfRecords.set(historyDao.getTotalCountOfRecords(connection));
+        });
+
+        return countOfRecords.get();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -194,15 +204,5 @@ public class AccountService {
     @Override
     public int hashCode() {
         return Objects.hash(FACTORY, userDao, accountDao, historyDao);
-    }
-
-    public int getNumberOfRecord() throws DaoException {
-        AtomicInteger countOfRecords = new AtomicInteger(0);
-
-        TransactionHandler.runInTransaction(connection -> {
-            countOfRecords.set(historyDao.getTotalCountOfRecords(connection));
-        });
-
-        return countOfRecords.get();
     }
 }

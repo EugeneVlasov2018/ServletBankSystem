@@ -99,19 +99,6 @@ public class MySqlUserDao implements IUserDao {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        boolean result = false;
-        if (this == o) result = true;
-        if (o == null || getClass() != o.getClass()) return false;
-        return result;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(FIND_USER_BY_EMAIL_AND_PASSWORD, FIND_USER_BY_EMAIL, ADD_NEW_USER);
-    }
-
     private User getUser(ResultSet resultSet) throws SQLException {
         return User.newBuilder()
                 .setUserId(resultSet.getInt("user_id"))
@@ -126,4 +113,14 @@ public class MySqlUserDao implements IUserDao {
                 .build();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return o != null && getClass() == o.getClass();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(FIND_USER_BY_EMAIL_AND_PASSWORD, FIND_USER_BY_EMAIL, ADD_NEW_USER, CHANGE_CREDIT_REQUEST_STATUS, CHANGE_CREDIT_ACCOUNT_STATUS);
+    }
 }

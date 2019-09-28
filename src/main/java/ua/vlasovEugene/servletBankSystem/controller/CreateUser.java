@@ -71,6 +71,6 @@ public class CreateUser implements Command {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userService, NEW_USER_PAGE);
+        return Objects.hash(userService);
     }
 }

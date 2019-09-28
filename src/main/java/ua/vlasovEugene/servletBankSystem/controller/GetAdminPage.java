@@ -40,6 +40,6 @@ public class GetAdminPage implements Command {
 
     @Override
     public int hashCode() {
-        return Objects.hash(service, ADMINPAGE);
+        return Objects.hash(service);
     }
 }

@@ -76,14 +76,12 @@ public class MySqlAccountHistoryDao implements IAccountHistoryDao {
 
     @Override
     public boolean equals(Object o) {
-        boolean result = false;
-        if (this == o) result =  true;
-        if (o == null || getClass() != o.getClass()) return false;
-        return result;
+        if (this == o) return true;
+        return o != null && getClass() == o.getClass();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(INSERT_NEW_ACTION_NOTE);
+        return Objects.hash(GET_TOTAL_COUNT_OF_RECORDS, INSERT_NEW_ACTION_NOTE, GET_ALL_ACTION_FOR_CURRENT_ACC);
     }
 }

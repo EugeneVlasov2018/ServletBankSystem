@@ -79,6 +79,6 @@ public class LoginUser implements Command {
 
     @Override
     public int hashCode() {
-        return Objects.hash(INDEXPAGE, service);
+        return Objects.hash(service);
     }
 }

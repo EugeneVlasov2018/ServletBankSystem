@@ -79,14 +79,12 @@ public class MySqlCreditRequestDao implements ICreditRequestDao {
 
     @Override
     public boolean equals(Object o) {
-        boolean result = false;
-        if (this == o) result = true;
-        if (o == null || getClass() != o.getClass()) return false;
-        return result;
+        if (this == o) return true;
+        return o != null && getClass() == o.getClass();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(GET_ALL_USER_REQUESTS);
+        return Objects.hash(GET_REQUEST_BY_ID, GET_ALL_USER_REQUESTS, DELETE_CURRENT_REQUEST, ADD_NEW_REQUEST);
     }
 }

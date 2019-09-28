@@ -38,6 +38,6 @@ public class CreditRequestDeleter implements Command {
 
     @Override
     public int hashCode() {
-        return Objects.hash(TARGETPAGE, service);
+        return Objects.hash(service);
     }
 }

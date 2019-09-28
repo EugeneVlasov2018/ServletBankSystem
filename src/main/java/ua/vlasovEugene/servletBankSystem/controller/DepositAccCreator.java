@@ -41,6 +41,6 @@ public class DepositAccCreator implements ua.vlasovEugene.servletBankSystem.cont
 
     @Override
     public int hashCode() {
-        return Objects.hash(service, TARGETPAGE);
+        return Objects.hash(service);
     }
 }

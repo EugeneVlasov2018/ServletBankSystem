@@ -15,8 +15,8 @@ public interface Command {
     /**
      * Execute.
      *
-     * @param request  the request
-     * @param response the response
+     * @param request  the request from Http
+     * @param response the response from Http
      * @throws IOException      the io exception
      * @throws ServletException the servlet exception
      * @throws DaoException     the dao exception

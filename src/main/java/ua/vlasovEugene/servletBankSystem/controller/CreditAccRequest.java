@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class CreditAccRequest implements Command {
     private UserService service;
@@ -40,5 +41,18 @@ public class CreditAccRequest implements Command {
 
         LOG.info("do forward to page " + CREDIT_REQUEST_PAGE);
         request.getRequestDispatcher(CREDIT_REQUEST_PAGE).forward(request, response);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreditAccRequest that = (CreditAccRequest) o;
+        return Objects.equals(service, that.service);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(service);
     }
 }

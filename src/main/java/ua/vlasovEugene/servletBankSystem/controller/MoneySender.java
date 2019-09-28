@@ -66,7 +66,7 @@ public class MoneySender implements Command {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MoneySender that = (MoneySender) o;
-        return service.equals(that.service);
+        return Objects.equals(service, that.service);
     }
 
     @Override
