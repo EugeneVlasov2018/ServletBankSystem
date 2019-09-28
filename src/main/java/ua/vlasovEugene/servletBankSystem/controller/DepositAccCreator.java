@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class DepositAccCreator implements ua.vlasovEugene.servletBankSystem.controller.Command {
-    private AccountService service;
+    private final AccountService service;
     private final String TARGETPAGE = "/userpage";
 
     public DepositAccCreator() {
-        service = new AccountService();
+        service = AccountService.getInstance();
     }
 
     public DepositAccCreator(AccountService service) {

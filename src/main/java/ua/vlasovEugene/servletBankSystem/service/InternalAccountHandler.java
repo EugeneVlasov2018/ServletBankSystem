@@ -15,13 +15,25 @@ import java.util.List;
 import java.util.Objects;
 
 public class InternalAccountHandler {
-    private IAccountDao accountDao;
-    private IAccountHistoryDao historyDao;
+    private final IAccountDao accountDao;
+    private final IAccountHistoryDao historyDao;
     private final AbstractDaoFactory FACTORY = AbstractDaoFactory.getDaoFactory("MY_SQL_FACTORY");
     private final String NOTE_FOR_CREDIT_ACC = "Loan interest was deducted from your account";
     private final String NOTE_FOR_DEPOSIT_ACC = "You have been accrued interest on the deposit";
 
-    public InternalAccountHandler() {
+
+    private static volatile InternalAccountHandler instance;
+
+    public static InternalAccountHandler getInstance() {
+        if (instance == null)
+            synchronized (InternalAccountHandler.class) {
+                if (instance == null)
+                    instance = new InternalAccountHandler();
+            }
+        return instance;
+    }
+
+    private InternalAccountHandler() {
         accountDao = FACTORY.getAccountDao();
         historyDao = FACTORY.getAccountHistoryDao();
     }

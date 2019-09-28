@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class RefillAccount implements Command {
-    private AccountService service;
+    private final AccountService service;
     private final String ACCOUNTPAGE = "/WEB-INF/view/userhistorypage.jsp";
 
     public RefillAccount(AccountService service) {
@@ -18,7 +18,7 @@ public class RefillAccount implements Command {
     }
 
     public RefillAccount() {
-        service = new AccountService();
+        service = AccountService.getInstance();
     }
 
     @Override

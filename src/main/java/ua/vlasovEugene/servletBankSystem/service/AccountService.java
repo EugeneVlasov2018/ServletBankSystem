@@ -20,12 +20,23 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class AccountService {
     private final AbstractDaoFactory FACTORY = AbstractDaoFactory.getDaoFactory("MY_SQL_FACTORY");
-    private IUserDao userDao;
-    private IAccountDao accountDao;
-    private IAccountHistoryDao historyDao;
+    private final IUserDao userDao;
+    private final IAccountDao accountDao;
+    private final IAccountHistoryDao historyDao;
     private final String REFILL_ACCOUNT = "Account replenishment";
 
-    public AccountService() {
+    private static volatile AccountService instance = new AccountService();
+
+    public static AccountService getInstance() {
+        if (instance == null)
+            synchronized (AccountService.class) {
+                if (instance == null)
+                    instance = new AccountService();
+            }
+        return instance;
+    }
+
+    private AccountService() {
         userDao = FACTORY.getUserDao();
         accountDao = FACTORY.getAccountDao();
         historyDao = FACTORY.getAccountHistoryDao();
@@ -114,9 +125,12 @@ public class AccountService {
         TransactionHandler.runInTransaction(connection -> {
             Account account = accountDao.getCurrentAccount(connection,currentAccount);
 
-            result.set(account.getCurrentBalance()
-                    .add(countOfMoney)
-                    .compareTo(account.getCreditLimit()) >= 0);
+            if (account.getAccountType().equals("credit")) {
+                result.set(account.getCurrentBalance()
+                        .add(countOfMoney)
+                        .compareTo(account.getCreditLimit()) >= 0);
+
+            }
 
         });
         return result.get();

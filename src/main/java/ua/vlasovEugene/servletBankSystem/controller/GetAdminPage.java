@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class GetAdminPage implements Command {
-    private RequestService service;
+    private final RequestService service;
     private final static Logger LOG = Logger.getLogger(GetAdminPage.class);
     private final String ADMINPAGE =  "/WEB-INF/view/adminpage.jsp";
 
     public GetAdminPage() {
-        service = new RequestService();
+        service = RequestService.getInstance();
     }
 
     public GetAdminPage(RequestService service) {

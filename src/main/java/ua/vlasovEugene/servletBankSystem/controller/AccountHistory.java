@@ -15,13 +15,13 @@ import java.util.Map;
 import java.util.Objects;
 
 public class AccountHistory implements Command {
-    private AccountService service;
+    private final AccountService service;
     private final String ACOOUNT_PAGE = "/WEB-INF/view/userhistorypage.jsp";
     private static final Logger LOG = Logger.getLogger(AccountHistory.class);
 
 
     public AccountHistory() {
-        service = new AccountService();
+        service = AccountService.getInstance();
     }
 
     public AccountHistory(AccountService service) {

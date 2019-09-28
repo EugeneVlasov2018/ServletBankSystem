@@ -10,13 +10,13 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class AccountWork implements Command {
-    private AccountService service;
+    private final AccountService service;
     private static final Logger LOG = Logger.getLogger(AccountWork.class);
     private final String ADD_MONEY_PAGE = "/WEB-INF/view/addmoneypage.jsp";
     private final String SEND_MONEY = "/WEB-INF/view/currentAccOperation.jsp";
 
     public AccountWork() {
-        service = new AccountService();
+        service = AccountService.getInstance();
     }
 
     public AccountWork(AccountService service) {

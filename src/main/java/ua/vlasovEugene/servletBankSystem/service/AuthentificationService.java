@@ -12,9 +12,20 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class AuthentificationService {
     private final AbstractDaoFactory FACTORY = AbstractDaoFactory.getDaoFactory("MY_SQL_FACTORY");
-    private IUserDao dao;
+    private final IUserDao dao;
 
-    public AuthentificationService() {
+    private static volatile AuthentificationService instance;
+
+    public static AuthentificationService getInstance() {
+        if (instance == null)
+            synchronized (AuthentificationService.class) {
+                if (instance == null)
+                    instance = new AuthentificationService();
+            }
+        return instance;
+    }
+
+    private AuthentificationService() {
         dao = FACTORY.getUserDao();
     }
 
@@ -26,22 +37,6 @@ public class AuthentificationService {
         AtomicReference<User> result = new AtomicReference<>();
 
         TransactionHandler.runInTransaction(connection -> result.set(dao.getUserByLogin(connection,login)));
-
-        return result.get();
-    }
-
-    public User getCurrentUserFromDB(User user) throws DaoException{
-        AtomicReference<User> result= new AtomicReference<>();
-
-        TransactionHandler.runInTransaction(connection -> result.set(dao.getUserByLoginAndPassword(connection, user)));
-
-        return result.get();
-    }
-
-    public boolean currentUSerIsExist(String login, String password) throws DaoException {
-        AtomicBoolean result = new AtomicBoolean(false);
-
-        TransactionHandler.runInTransaction(connection -> result.set(dao.userByEmailIsExist(connection,login,password)));
 
         return result.get();
     }

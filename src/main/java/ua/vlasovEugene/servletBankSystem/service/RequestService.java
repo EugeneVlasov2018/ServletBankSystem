@@ -21,11 +21,22 @@ import java.util.concurrent.atomic.AtomicReference;
 public class RequestService{
 
     private final AbstractDaoFactory FACTORY = AbstractDaoFactory.getDaoFactory("MY_SQL_FACTORY");
-    private ICreditRequestDao requestDao;
-    private IUserDao userDao;
-    private IAccountDao accountDao;
+    private final ICreditRequestDao requestDao;
+    private final IUserDao userDao;
+    private final IAccountDao accountDao;
 
-    public RequestService() {
+    private static volatile RequestService instance;
+
+    public static RequestService getInstance() {
+        if (instance == null)
+            synchronized (RequestService.class) {
+                if (instance == null)
+                    instance = new RequestService();
+            }
+        return instance;
+    }
+
+    private RequestService() {
         requestDao = FACTORY.getRequestDao();
         userDao = FACTORY.getUserDao();
         accountDao = FACTORY.getAccountDao();

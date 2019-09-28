@@ -14,12 +14,12 @@ import java.util.Objects;
 
 
 public class CreateUser implements Command {
-    private UserService userService;
+    private final UserService userService;
     private static final Logger LOG = Logger.getLogger(CreateUser.class);
     private final String NEW_USER_PAGE = "/WEB-INF/view/newuser.jsp";
 
     public CreateUser() {
-        userService = new UserService();
+        userService = UserService.getInstance();
     }
 
     public CreateUser(UserService userService) {

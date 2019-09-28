@@ -25,12 +25,23 @@ public class UserService {
     private final BigDecimal DEPOSIT_INTEREST_RATE = new BigDecimal("5");
     private final String FIRST_NOTE_FOR_PAYMENT_HISTORY = "Your account was created, congratulations !";
     private final String USER_ROLE = "user";
-    private IAccountDao accountDao;
-    private IUserDao userDao;
-    private IAccountHistoryDao accHistoryDao;
-    private ICreditRequestDao creditReqDao;
+    private final IAccountDao accountDao;
+    private final IUserDao userDao;
+    private final IAccountHistoryDao accHistoryDao;
+    private final ICreditRequestDao creditReqDao;
 
-    public UserService() {
+    private static volatile UserService instance;
+
+    public static UserService getInstance() {
+        if (instance == null)
+            synchronized (UserService.class) {
+                if (instance == null)
+                    instance = new UserService();
+            }
+        return instance;
+    }
+
+    private UserService() {
         accountDao = FACTORY.getAccountDao();
         userDao = FACTORY.getUserDao();
         accHistoryDao = FACTORY.getAccountHistoryDao();
@@ -93,7 +104,7 @@ public class UserService {
         PaymentHistory result = new PaymentHistory();
         result.setAccountNumber(accountNumber);
         result.setTransactionAmount(firstpal);
-        result.setCurrentBalance(firstpal);
+        result.setCurrentBalance(new BigDecimal("0"));
         result.setDateOfTransaction(currentDate);
         result.setNotification(FIRST_NOTE_FOR_PAYMENT_HISTORY);
 
@@ -108,7 +119,7 @@ public class UserService {
         result.setAccountNumber(AccountNumberGenerator.getAccountNumber(connection, accountDao));
         result.setAccountType("deposit");
         result.setDeposit(firstpal);
-        result.setCurrentBalance(firstpal);
+        result.setCurrentBalance(new BigDecimal("0"));
         result.setInterestRate(DEPOSIT_INTEREST_RATE);
         result.setCreditLimit(new BigDecimal("0"));
         result.setAccountValidity(currentDate);

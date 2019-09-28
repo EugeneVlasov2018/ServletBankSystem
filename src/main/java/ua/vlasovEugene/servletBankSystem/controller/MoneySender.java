@@ -11,12 +11,12 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class MoneySender implements Command {
-    private AccountService service;
+    private final AccountService service;
 
     private final String ERROR_PAGE = "/WEB-INF/view/currentAccOperation.jsp";
 
     public MoneySender() {
-        service = new AccountService();
+        service = AccountService.getInstance();
     }
 
     public MoneySender(AccountService service) {

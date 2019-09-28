@@ -14,11 +14,10 @@ import java.util.Objects;
 
 public class LoginUser implements Command {
     private final String INDEXPAGE = "/WEB-INF/view/index.jsp";
-
-    private AuthentificationService service;
+    private final AuthentificationService service;
 
     public LoginUser() {
-        service = new AuthentificationService();
+        service = AuthentificationService.getInstance();
     }
 
     public LoginUser(AuthentificationService service) {
@@ -32,7 +31,6 @@ public class LoginUser implements Command {
         User user;
 
         user = service.getUserByLogin(login);
-        System.out.println("from service " + user);
 
         if (user != null) {
             if (checkUser(request, password, user)) {

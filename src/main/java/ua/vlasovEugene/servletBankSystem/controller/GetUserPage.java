@@ -14,17 +14,17 @@ import java.util.Map;
 import java.util.Objects;
 
 public class GetUserPage implements Command {
-    private UserService service;
+    private final UserService service;
+    private final String USERPAGE = "/WEB-INF/view/userpage.jsp";
 
     public GetUserPage() {
-        service = new UserService();
+        service = UserService.getInstance();
     }
 
     public GetUserPage(UserService service) {
         this.service = service;
     }
 
-    private String USERPAGE = "/WEB-INF/view/userpage.jsp";
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
         Map<String, List<Account>> accounts;

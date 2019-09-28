@@ -10,10 +10,10 @@ import java.util.Objects;
 
 public class CreditAccountCreator implements Command {
     private final String TARGETPAGE = "/adminpage";
-    private RequestService service;
+    private final RequestService service;
 
     public CreditAccountCreator() {
-        service = new RequestService();
+        service = RequestService.getInstance();
     }
 
     public CreditAccountCreator(RequestService service) {

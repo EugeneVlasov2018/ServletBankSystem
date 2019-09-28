@@ -10,10 +10,10 @@ import java.util.Objects;
 
 public class CreditRequestDeleter implements Command {
     private final String TARGETPAGE = "/adminpage";
-    private RequestService service;
+    private final RequestService service;
 
     public CreditRequestDeleter() {
-        service = new RequestService();
+        service = RequestService.getInstance();
     }
 
     public CreditRequestDeleter(RequestService service) {

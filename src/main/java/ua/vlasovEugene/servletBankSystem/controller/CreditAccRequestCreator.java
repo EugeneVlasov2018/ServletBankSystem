@@ -14,11 +14,11 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 public class CreditAccRequestCreator implements Command {
-    private RequestService service;
+    private final RequestService service;
     private final String TARGETPAGE = "/userpage";
 
     public CreditAccRequestCreator() {
-        service = new RequestService();
+        service = RequestService.getInstance();
     }
 
     public CreditAccRequestCreator(RequestService service) {

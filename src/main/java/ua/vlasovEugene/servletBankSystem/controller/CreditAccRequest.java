@@ -13,11 +13,11 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CreditAccRequest implements Command {
-    private UserService service;
+    private final UserService service;
     private static final Logger LOG = Logger.getLogger(CreditAccRequest.class);
 
     public CreditAccRequest() {
-        service = new UserService();
+        service = UserService.getInstance();
     }
 
     public CreditAccRequest(UserService service) {
