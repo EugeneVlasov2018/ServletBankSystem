@@ -29,6 +29,4 @@ public class ExceptionHandlerServlet extends HttpServlet {
         req.setAttribute("statusCode", statusCode);
         req.getRequestDispatcher(ERRORPAGE).forward(req, resp);
     }
-
-
 }
