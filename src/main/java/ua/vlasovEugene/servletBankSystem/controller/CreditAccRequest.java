@@ -27,7 +27,7 @@ public class CreditAccRequest implements Command {
     private final String CREDIT_REQUEST_PAGE = "/WEB-INF/view/creditrequestform.jsp";
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         LocalDateTime dataAfterSix = LocalDateTime.now().plusMonths(6);
 
         request.setAttribute("summaryBalance", service.getTotalBalanceAfterHalfYear(

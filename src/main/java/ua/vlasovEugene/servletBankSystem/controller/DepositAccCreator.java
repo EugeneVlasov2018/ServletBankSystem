@@ -23,7 +23,7 @@ public class DepositAccCreator implements ua.vlasovEugene.servletBankSystem.cont
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         BigDecimal initialFee = new BigDecimal(request.getParameter("deposit").
                 replace(",", "."));
         User currentUser = (User) request.getSession().getAttribute("user");

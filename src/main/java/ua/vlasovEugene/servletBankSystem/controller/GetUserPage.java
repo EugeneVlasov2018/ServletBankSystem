@@ -26,7 +26,7 @@ public class GetUserPage implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, List<Account>> accounts;
         User currentUser = (User) request.getSession().getAttribute("user");
         accounts = service.getAllCurrentUserAccounts(currentUser);

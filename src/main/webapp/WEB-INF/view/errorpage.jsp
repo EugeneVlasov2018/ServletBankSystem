@@ -16,11 +16,6 @@
 </head>
 <body>
 <fmt:message key="somethinWrong"/>
-<c:if test="${not empty requestScope.daoException}">
-    <fmt:message key="daoEcxeption"/>
-    <br>
-    <c:out value="${requestScope.daoException.getMessage}"/>
-</c:if>
 <fmt:message key="errorcode"/>
 <c:out value="${requestScope.statusCode}"/>
 <br>

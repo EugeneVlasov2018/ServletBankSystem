@@ -21,7 +21,7 @@ public class CreditAccountCreator implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String requestId = request.getParameter("requestId");
         service.createNewCreditAcc(Integer.valueOf(requestId));
         response.sendRedirect(TARGETPAGE);

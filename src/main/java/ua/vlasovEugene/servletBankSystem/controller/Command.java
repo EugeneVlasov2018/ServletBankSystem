@@ -21,5 +21,5 @@ public interface Command {
      * @throws ServletException the servlet exception
      * @throws DaoException     the dao exception
      */
-    void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, DaoException;
+    void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException;
 }

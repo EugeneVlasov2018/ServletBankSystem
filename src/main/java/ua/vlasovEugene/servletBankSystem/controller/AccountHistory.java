@@ -29,7 +29,7 @@ public class AccountHistory implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Long accountNumber = getNumberOfCurrentAcc(request);
         preparePage(request, accountNumber);
 
@@ -50,7 +50,7 @@ public class AccountHistory implements Command {
         }
     }
 
-    private void preparePage(HttpServletRequest request, Long accountNumber) throws DaoException {
+    private void preparePage(HttpServletRequest request, Long accountNumber) {
         int page = 1;
         int recordsPerPage = 5;
         if (request.getParameter("page") != null)

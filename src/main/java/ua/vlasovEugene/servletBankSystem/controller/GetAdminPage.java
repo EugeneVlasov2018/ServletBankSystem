@@ -25,7 +25,7 @@ public class GetAdminPage implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("allUserRequests", service.getAllRequests());
         request.getRequestDispatcher(ADMINPAGE).forward(request, response);
     }

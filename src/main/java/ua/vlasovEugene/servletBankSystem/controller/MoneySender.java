@@ -24,7 +24,7 @@ public class MoneySender implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Long currentAccount = Long.valueOf((String) request.getSession().getAttribute("accountNumber"));
         BigDecimal countOfMoney = new BigDecimal(request.getParameter("money")
                 .replace(',', '.'))

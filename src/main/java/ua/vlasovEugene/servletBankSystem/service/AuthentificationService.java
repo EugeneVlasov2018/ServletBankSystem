@@ -3,11 +3,10 @@ package ua.vlasovEugene.servletBankSystem.service;
 import ua.vlasovEugene.servletBankSystem.dao.IUserDao;
 import ua.vlasovEugene.servletBankSystem.dao.daoFactory.AbstractDaoFactory;
 import ua.vlasovEugene.servletBankSystem.entity.User;
-import ua.vlasovEugene.servletBankSystem.utils.TransactionHandler;
+import ua.vlasovEugene.servletBankSystem.utils.transaction.TransactionHandler;
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.DaoException;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AuthentificationService {
@@ -33,7 +32,7 @@ public class AuthentificationService {
         this.dao = dao;
     }
 
-    public User getUserByLogin(String login) throws DaoException {
+    public User getUserByLogin(String login) {
         AtomicReference<User> result = new AtomicReference<>();
 
         TransactionHandler.runInTransaction(connection -> result.set(dao.getUserByLogin(connection,login)));

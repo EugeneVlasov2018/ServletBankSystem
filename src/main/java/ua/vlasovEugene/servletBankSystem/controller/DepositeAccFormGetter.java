@@ -12,7 +12,7 @@ public class DepositeAccFormGetter implements ua.vlasovEugene.servletBankSystem.
     private final String TARGETPAGE = "/WEB-INF/view/newDepositAcc.jsp";
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getRequestDispatcher(TARGETPAGE).forward(request, response);
     }
 

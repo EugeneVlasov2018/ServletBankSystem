@@ -1,4 +1,4 @@
-package ua.vlasovEugene.servletBankSystem.utils.exceptions;
+package ua.vlasovEugene.servletBankSystem.utils.generators;
 
 import ua.vlasovEugene.servletBankSystem.dao.IAccountDao;
 

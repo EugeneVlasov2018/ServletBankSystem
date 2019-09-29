@@ -5,10 +5,10 @@ import ua.vlasovEugene.servletBankSystem.dao.daoFactory.AbstractDaoFactory;
 import ua.vlasovEugene.servletBankSystem.entity.Account;
 import ua.vlasovEugene.servletBankSystem.entity.PaymentHistory;
 import ua.vlasovEugene.servletBankSystem.entity.User;
-import ua.vlasovEugene.servletBankSystem.utils.TransactionHandler;
-import ua.vlasovEugene.servletBankSystem.utils.exceptions.AccountNumberGenerator;
+import ua.vlasovEugene.servletBankSystem.utils.transaction.TransactionHandler;
+import ua.vlasovEugene.servletBankSystem.utils.generators.AccountNumberGenerator;
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.DaoException;
-import ua.vlasovEugene.servletBankSystem.utils.exceptions.PasswordGenerator;
+import ua.vlasovEugene.servletBankSystem.utils.generators.PasswordGenerator;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -56,7 +56,7 @@ public class UserService {
         this.creditReqDao = creditReqDao;
     }
 
-    public boolean currentUSerIsExist(String login, String password) throws DaoException {
+    public boolean currentUSerIsExist(String login, String password) {
         AtomicBoolean result = new AtomicBoolean(false);
 
         TransactionHandler.runInTransaction(connection -> {
@@ -66,7 +66,7 @@ public class UserService {
         return result.get();
     }
 
-    public Map<String,List<Account>> getAllCurrentUserAccounts(User currentUser) throws DaoException {
+    public Map<String, List<Account>> getAllCurrentUserAccounts(User currentUser) {
         AtomicReference<Map<String, List<Account>>> result = new AtomicReference<>();
 
         TransactionHandler.runInTransaction(connection -> {
@@ -76,7 +76,7 @@ public class UserService {
         return result.get();
     }
 
-    public void addNewUser(Map<String,String> parameters) throws DaoException {
+    public void addNewUser(Map<String, String> parameters) {
         TransactionHandler.runInTransaction(connection -> {
             BigDecimal firstPal = new BigDecimal(parameters.get("deposit").replace(',', '.'));
 
@@ -142,7 +142,7 @@ public class UserService {
                 .build();
     }
 
-    public BigDecimal getTotalBalanceAfterHalfYear(User user, LocalDateTime afterSixMonts) throws DaoException {
+    public BigDecimal getTotalBalanceAfterHalfYear(User user, LocalDateTime afterSixMonts) {
         AtomicReference<BigDecimal> result = new AtomicReference<>();
 
         TransactionHandler.runInTransaction(connection -> {

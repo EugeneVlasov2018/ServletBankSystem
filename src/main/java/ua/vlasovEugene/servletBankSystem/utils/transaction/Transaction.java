@@ -1,4 +1,4 @@
-package ua.vlasovEugene.servletBankSystem.utils;
+package ua.vlasovEugene.servletBankSystem.utils.transaction;
 
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.DaoException;
 

@@ -27,7 +27,7 @@ public class CreateUser implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("email");
         String password = request.getParameter("password");
 

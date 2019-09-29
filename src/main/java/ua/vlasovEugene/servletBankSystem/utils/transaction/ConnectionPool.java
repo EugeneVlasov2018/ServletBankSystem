@@ -1,4 +1,4 @@
-package ua.vlasovEugene.servletBankSystem.utils;
+package ua.vlasovEugene.servletBankSystem.utils.transaction;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -28,10 +28,10 @@ public class ConnectionPool {
             if (lookup!=null){
                 dataSource = (DataSource) lookup;
             } else {
-                new RuntimeException("Datasource not found!!!");
+                throw new RuntimeException("Datasource not found!!!");
             }
         } catch (NamingException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

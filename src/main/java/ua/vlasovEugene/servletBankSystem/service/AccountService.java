@@ -6,8 +6,8 @@ import ua.vlasovEugene.servletBankSystem.dao.IUserDao;
 import ua.vlasovEugene.servletBankSystem.dao.daoFactory.AbstractDaoFactory;
 import ua.vlasovEugene.servletBankSystem.entity.Account;
 import ua.vlasovEugene.servletBankSystem.entity.PaymentHistory;
-import ua.vlasovEugene.servletBankSystem.utils.TransactionHandler;
-import ua.vlasovEugene.servletBankSystem.utils.exceptions.AccountNumberGenerator;
+import ua.vlasovEugene.servletBankSystem.utils.transaction.TransactionHandler;
+import ua.vlasovEugene.servletBankSystem.utils.generators.AccountNumberGenerator;
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.DaoException;
 
 import java.math.BigDecimal;
@@ -48,7 +48,7 @@ public class AccountService {
         this.historyDao = historyDao;
     }
 
-    public void createNewDepositAccount(BigDecimal initialFee, String userLogin) throws DaoException {
+    public void createNewDepositAccount(BigDecimal initialFee, String userLogin) {
         TransactionHandler.runInTransaction(connection -> {
             Account newAccount = new Account(
                     null,
@@ -77,7 +77,7 @@ public class AccountService {
         });
     }
 
-    public List<PaymentHistory> getHistoryOfCurrentAccount(Long accountNumber, int ofset, int limit) throws DaoException {
+    public List<PaymentHistory> getHistoryOfCurrentAccount(Long accountNumber, int ofset, int limit) {
         AtomicReference<List<PaymentHistory>> accountHistory = new AtomicReference<>();
 
         TransactionHandler.runInTransaction(connection ->
@@ -88,7 +88,7 @@ public class AccountService {
     }
 
 
-    public void refillCurrentAccount(Long accountNumber, BigDecimal summ) throws DaoException {
+    public void refillCurrentAccount(Long accountNumber, BigDecimal summ) {
         TransactionHandler.runInTransaction(connection -> {
 
             Account currentAccount = accountDao.getCurrentAccount(connection,accountNumber);
@@ -108,7 +108,7 @@ public class AccountService {
         });
     }
 
-    public boolean recipientAccountIsExist(Long accountNumber) throws DaoException {
+    public boolean recipientAccountIsExist(Long accountNumber) {
         AtomicBoolean result = new AtomicBoolean(false);
 
         TransactionHandler.runInTransaction(connection -> {
@@ -119,7 +119,7 @@ public class AccountService {
         return result.get();
     }
 
-    public boolean currentAccountHaveEnoughMoney(Long currentAccount, BigDecimal countOfMoney) throws DaoException {
+    public boolean currentAccountHaveEnoughMoney(Long currentAccount, BigDecimal countOfMoney) {
         AtomicBoolean result = new AtomicBoolean(false);
 
         TransactionHandler.runInTransaction(connection -> {
@@ -136,7 +136,7 @@ public class AccountService {
         return result.get();
     }
 
-    public void sendMoneyToAcc(Long donorAccNumber, Long recipientAccNumber, BigDecimal countOfMoney) throws DaoException {
+    public void sendMoneyToAcc(Long donorAccNumber, Long recipientAccNumber, BigDecimal countOfMoney) {
         TransactionHandler.runInTransaction(connection -> {
 
             Account donorAcc = accountDao.getCurrentAccount(connection,donorAccNumber);
@@ -172,7 +172,7 @@ public class AccountService {
         });
     }
 
-    public void sendMoneyToAcc(Long donorAccNumber, String dummyRecipient, BigDecimal countOfMoney) throws DaoException {
+    public void sendMoneyToAcc(Long donorAccNumber, String dummyRecipient, BigDecimal countOfMoney) {
         TransactionHandler.runInTransaction(connection -> {
 
             Account donorAcc = accountDao.getCurrentAccount(connection,donorAccNumber);
@@ -197,9 +197,7 @@ public class AccountService {
     public int getNumberOfRecord() throws DaoException {
         AtomicInteger countOfRecords = new AtomicInteger(0);
 
-        TransactionHandler.runInTransaction(connection -> {
-            countOfRecords.set(historyDao.getTotalCountOfRecords(connection));
-        });
+        TransactionHandler.runInTransaction(connection -> countOfRecords.set(historyDao.getTotalCountOfRecords(connection)));
 
         return countOfRecords.get();
     }

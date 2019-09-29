@@ -26,7 +26,7 @@ public class CreditAccRequestCreator implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User requestSender = (User) request.getSession().getAttribute("user");
 
         sendCreditRequestToAdmin(request, requestSender);

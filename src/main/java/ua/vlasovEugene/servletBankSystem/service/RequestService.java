@@ -6,8 +6,8 @@ import ua.vlasovEugene.servletBankSystem.dao.IUserDao;
 import ua.vlasovEugene.servletBankSystem.dao.daoFactory.AbstractDaoFactory;
 import ua.vlasovEugene.servletBankSystem.entity.Account;
 import ua.vlasovEugene.servletBankSystem.entity.CreditOpeningRequest;
-import ua.vlasovEugene.servletBankSystem.utils.TransactionHandler;
-import ua.vlasovEugene.servletBankSystem.utils.exceptions.AccountNumberGenerator;
+import ua.vlasovEugene.servletBankSystem.utils.transaction.TransactionHandler;
+import ua.vlasovEugene.servletBankSystem.utils.generators.AccountNumberGenerator;
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.DaoException;
 
 import java.math.BigDecimal;
@@ -48,7 +48,7 @@ public class RequestService{
         this.accountDao = accountDao;
     }
 
-    public List<CreditOpeningRequest> getAllRequests() throws DaoException {
+    public List<CreditOpeningRequest> getAllRequests() {
         AtomicReference<List<CreditOpeningRequest>> requests = new AtomicReference<>();
 
         TransactionHandler.runInTransaction(connection -> requests.set(requestDao.getAllUserRequests(connection)));
@@ -57,7 +57,7 @@ public class RequestService{
     }
 
     public void createNewCreditRequest(String userLoginEmail, BigDecimal totalUserBalance,
-                                       BigDecimal creditLimit, LocalDateTime dataOfTotalBalance) throws DaoException {
+                                       BigDecimal creditLimit, LocalDateTime dataOfTotalBalance) {
         TransactionHandler.runInTransaction(connection -> {
             CreditOpeningRequest currentRequest = new CreditOpeningRequest(
                     null,
@@ -71,7 +71,7 @@ public class RequestService{
         });
     }
 
-    public void createNewCreditAcc(Integer requestId) throws DaoException {
+    public void createNewCreditAcc(Integer requestId) {
         TransactionHandler.runInTransaction(connection -> {
             CreditOpeningRequest currentRequest = requestDao.getRequestById(connection, requestId);
             Account newCreditAcc = getCreditAcc(connection, currentRequest);
@@ -85,7 +85,7 @@ public class RequestService{
         });
     }
 
-    public void deleteCreditRequest(Integer requestId) throws DaoException {
+    public void deleteCreditRequest(Integer requestId) {
         TransactionHandler.runInTransaction(connection -> {
             CreditOpeningRequest currentRequest = requestDao.getRequestById(connection, requestId);
             requestDao.deleteCurrentRequest(connection, currentRequest);

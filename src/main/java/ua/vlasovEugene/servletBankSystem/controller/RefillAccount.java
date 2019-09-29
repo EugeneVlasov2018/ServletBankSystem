@@ -22,7 +22,7 @@ public class RefillAccount implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Long accountNumber = Long.valueOf((String) request.getSession().getAttribute("accountNumber"));
         BigDecimal summ = new BigDecimal(request.getParameter("summ").replace(',', '.'));
 

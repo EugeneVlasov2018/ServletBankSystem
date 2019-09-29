@@ -3,7 +3,7 @@ package ua.vlasovEugene.servletBankSystem.controller;
 import ua.vlasovEugene.servletBankSystem.entity.User;
 import ua.vlasovEugene.servletBankSystem.service.AuthentificationService;
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.DaoException;
-import ua.vlasovEugene.servletBankSystem.utils.exceptions.PasswordGenerator;
+import ua.vlasovEugene.servletBankSystem.utils.generators.PasswordGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class LoginUser implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("email");
         String password = request.getParameter("password");
         User user;

@@ -18,9 +18,6 @@ import java.io.IOException;
  */
 public class FrontController extends HttpServlet {
     private static final Logger LOG = Logger.getLogger(FrontController.class);
-    private static final long SLEEP_ONE_DAY = 1000 * 60 * 60 * 24;
-
-    private final String ERRORPAGE = "/WEB-INF/view/errorpage.jsp";
 
     @Override
     public void init() throws ServletException {
@@ -29,15 +26,12 @@ public class FrontController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         doWork(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         doWork(req,resp);
-
     }
 
     private void doWork(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,12 +44,6 @@ public class FrontController extends HttpServlet {
 
         LOG.info(String.format("Command %s received", command));
         Command currentCommand = CommandContainer.getCommand(command);
-        try {
-            currentCommand.execute(req, resp);
-        } catch (DaoException e) {
-            e.printStackTrace();//todo обработать ошибку
-            req.setAttribute("daoException", e);
-            req.getRequestDispatcher(ERRORPAGE).forward(req, resp);
-        }
+        currentCommand.execute(req, resp);
     }
 }

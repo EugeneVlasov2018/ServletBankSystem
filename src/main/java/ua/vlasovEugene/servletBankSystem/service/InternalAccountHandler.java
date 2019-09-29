@@ -5,7 +5,7 @@ import ua.vlasovEugene.servletBankSystem.dao.IAccountHistoryDao;
 import ua.vlasovEugene.servletBankSystem.dao.daoFactory.AbstractDaoFactory;
 import ua.vlasovEugene.servletBankSystem.entity.Account;
 import ua.vlasovEugene.servletBankSystem.entity.PaymentHistory;
-import ua.vlasovEugene.servletBankSystem.utils.TransactionHandler;
+import ua.vlasovEugene.servletBankSystem.utils.transaction.TransactionHandler;
 import ua.vlasovEugene.servletBankSystem.utils.exceptions.DaoException;
 
 import java.math.BigDecimal;
@@ -44,7 +44,7 @@ public class InternalAccountHandler {
     }
 
 
-    public void doWork() throws DaoException {
+    public void doWork() {
         TransactionHandler.runInTransaction(connection -> {
             List<Account> accounts = accountDao.getAllAccounts(connection);
 
@@ -81,7 +81,7 @@ public class InternalAccountHandler {
         );
     }
 
-    private BigDecimal changeBalanceOfAcc(Account currentAccount) throws DaoException {
+    private BigDecimal changeBalanceOfAcc(Account currentAccount) {
 
         if (currentAccount.getAccountType().equalsIgnoreCase("credit")) {
             if (currentAccount.getCurrentBalance().doubleValue() < 0) {

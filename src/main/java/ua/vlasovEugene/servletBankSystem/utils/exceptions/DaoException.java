@@ -3,7 +3,7 @@ package ua.vlasovEugene.servletBankSystem.utils.exceptions;
 /**
  * Artificial exception that should be thrown out of the tao layer
  */
-public class DaoException extends Exception {
+public class DaoException extends RuntimeException {
     public DaoException() {
         super();
     }

@@ -1,4 +1,4 @@
-package ua.vlasovEugene.servletBankSystem.utils;
+package ua.vlasovEugene.servletBankSystem.utils.tag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -21,7 +21,7 @@ public class DateFormatter extends TagSupport {
             JspWriter writer = pageContext.getOut();
             writer.write(localDateTime.format(formatter));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new JspException(e);
         }
         return SKIP_BODY;
     }

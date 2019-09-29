@@ -21,7 +21,7 @@ public class CreditRequestDeleter implements Command {
     }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, DaoException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer requestId = Integer.valueOf(request.getParameter("requestId"));
 
         service.deleteCreditRequest(requestId);

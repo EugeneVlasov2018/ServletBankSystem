@@ -1,6 +1,8 @@
-package ua.vlasovEugene.servletBankSystem.utils.exceptions;
+package ua.vlasovEugene.servletBankSystem.utils.generators;
 
+import org.apache.log4j.Logger;
 import ua.vlasovEugene.servletBankSystem.entity.User;
+import ua.vlasovEugene.servletBankSystem.utils.exceptions.PasswordException;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -14,16 +16,20 @@ import java.util.*;
 
 public class PasswordGenerator {
 
+    private static final Logger LOG = Logger.getLogger(PasswordGenerator.class);
     public static Map<String, String> createPassword(String password) {
         Map<String, String> result = new HashMap<>();
         String salt = generateSalt();
 
         result.put("salt", salt);
         result.put("password", workWithPassAndSalt(password, salt));
+
+        LOG.info("gave the password and salt up");
         return result;
     }
 
     private static String generateSalt() {
+        LOG.info("return random 16x String as key");
         return UUID.randomUUID().toString().substring(0, 16);
     }
 
@@ -49,9 +55,8 @@ public class PasswordGenerator {
                 BadPaddingException |
                 IllegalBlockSizeException |
                 InvalidKeyException e) {
-            //todo обработать ошибку
-            e.printStackTrace();
+            LOG.error("get Exception in PasswordGenerator!!!", e);
+            throw new PasswordException(e);
         }
-        return null;
     }
 }

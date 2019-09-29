@@ -11,7 +11,7 @@
 
     <tag>
         <name>customDate</name>
-        <tag-class>ua.vlasovEugene.servletBankSystem.utils.DateFormatter</tag-class>
+        <tag-class>ua.vlasovEugene.servletBankSystem.utils.tag.DateFormatter</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>localDateTime</name>
