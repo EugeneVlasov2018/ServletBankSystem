@@ -19,7 +19,7 @@ public class UserFilter implements Filter {
         if(userFromSession.getUserRole().equalsIgnoreCase("user")){
             filterChain.doFilter(servletRequest,servletResponse);
         } else {
-            response.sendRedirect("/");
+            response.sendRedirect("/adminpage");
         }
     }
 }

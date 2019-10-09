@@ -34,31 +34,31 @@ public class User {
         this.salt = salt;
     }
 
-  public Integer getUserId() {
+    public Integer getUserId() {
     return userId;
   }
 
-  public String getUserFirstname() {
+    public String getUserFirstname() {
     return userFirstname;
   }
 
-  public String getUserLastname() {
+    public String getUserLastname() {
     return userLastname;
   }
 
-  public String getUserLoginEmail() {
+    public String getUserLoginEmail() {
     return userLoginEmail;
   }
 
-  public String getUserPassword() {
+    public String getUserPassword() {
     return userPassword;
   }
 
-  public String getUserRole() {
+    public String getUserRole() {
     return userRole;
   }
 
-  public Boolean getUserHaveCreditAcc() {
+    public Boolean getUserHaveCreditAcc() {
     return userHaveCreditAcc;
   }
 

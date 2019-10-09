@@ -20,7 +20,6 @@ public class AccountNumberGenerator {
         while (allAccountsNumbers.contains(accountNumber)) {
             accountNumber = random.nextInt(range) + 1;
         }
-
         return accountNumber;
     }
 }
