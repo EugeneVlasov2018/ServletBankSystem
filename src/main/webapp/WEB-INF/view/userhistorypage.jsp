@@ -9,12 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="/WEB-INF/mytag.tld" prefix="customTag" %>
-<c:if test="${not empty sessionScope.currentLang}">
-    <fmt:setLocale value="${sessionScope.currentLang}" scope="session"/>
-</c:if>
-<c:if test="${empty sessionScope.currentLang}">
-    <fmt:setLocale value="en_EN" scope="session"/>
-</c:if>
+<fmt:setLocale value="${sessionScope.currentLang}"/>
 <fmt:setBundle basename="pages/userhistorypage"/>
 <html>
 <head>

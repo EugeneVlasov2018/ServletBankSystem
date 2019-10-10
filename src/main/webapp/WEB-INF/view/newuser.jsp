@@ -9,12 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:if test="${not empty sessionScope.currentLang}">
-    <fmt:setLocale value="${sessionScope.currentLang}" scope="session"/>
-</c:if>
-<c:if test="${empty sessionScope.currentLang}">
-    <fmt:setLocale value="en_EN" scope="session"/>
-</c:if>
+<fmt:setLocale value="${sessionScope.currentLang}"/>
 <fmt:setBundle basename="pages/newuser"/>
 
 <html>
